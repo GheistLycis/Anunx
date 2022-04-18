@@ -29,6 +29,7 @@ const Home = () => {
 
   return (
     <TemplateDefault>
+      {/* PAGE'S TITLE */}
       <Container className={classes.container} maxWidth="sm">
         <Typography component="h1" variant="h2" align="center">
           My Announcements
@@ -37,6 +38,7 @@ const Home = () => {
           New Announcement
         </Button>
       </Container>
+      {/* CARDS */}
       <Container maxWidth="md">
         <Grid container spacing={4}>
           <Grid item xs={12} sm={6} md={4}>
@@ -51,7 +53,7 @@ const Home = () => {
                   Product's Name
                 </Typography>
                 <Typography>
-                  Product's Price
+                  $00,00
                 </Typography>
               </CardContent>
               <CardActions>
@@ -76,7 +78,7 @@ const Home = () => {
                   Product's Name
                 </Typography>
                 <Typography>
-                  Product's Price
+                  $00,00
                 </Typography>
               </CardContent>
               <CardActions>
@@ -101,7 +103,7 @@ const Home = () => {
                   Product's Name
                 </Typography>
                 <Typography>
-                  Product's Price
+                  $00,00
                 </Typography>
               </CardContent>
               <CardActions>
@@ -126,7 +128,7 @@ const Home = () => {
                   Product's Name
                 </Typography>
                 <Typography>
-                  Product's Price
+                  $00,00
                 </Typography>
               </CardContent>
               <CardActions>

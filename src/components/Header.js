@@ -38,7 +38,7 @@ const ButtonAppBar = () => {
                         className={classes.title}
                         variant="h6" 
                     >
-                        News
+                        Menu
                     </Typography>
                     <Button color="inherit">
                         Login
