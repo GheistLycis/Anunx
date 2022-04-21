@@ -1,7 +1,18 @@
 import { useState } from "react"
 import { useDropzone } from "react-dropzone"
 
-import { Container, Typography, Box, TextField, Select, Button, IconButton } from "@material-ui/core"
+import { Container, 
+    Typography, 
+    Box, 
+    TextField, 
+    Select, 
+    Button, 
+    IconButton, 
+    FormControl, 
+    InputLabel, 
+    OutlinedInput,
+    InputAdornment
+} from "@material-ui/core"
 import { makeStyles } from "@material-ui/core/styles"
 import { DeleteForever } from "@material-ui/icons"
 
@@ -157,6 +168,7 @@ const Publish = () => {
                             </Typography>
                             <input {...getInputProps()} />
                         </Box>
+                        {/* To-do: dropped files are not appearing */}
                         {
                             files.map((file, index) => {
                                 <Box 
@@ -202,6 +214,26 @@ const Publish = () => {
                         variant="outlined"
                         fullWidth
                     />
+                </Box>
+            </Container>
+            {/* PRODUCT'S PRICE */}
+            <Container className={classes.boxContainer} maxWidth="md">
+                <Box className={classes.box}>
+                    <Typography component="h6" variant="h6" color="textPrimary">
+                        Price
+                    </Typography>
+                    <br />
+                    <FormControl 
+                        variant="outlined"
+                        fullWidth
+                    >
+                        <InputLabel>Value</InputLabel>
+                        <OutlinedInput 
+                            onChange={() => {}}
+                            startAdornment={<InputAdornment position="start">US$</InputAdornment>}
+                            labelWidth={40}
+                        />
+                    </FormControl>
                 </Box>
             </Container>
             {/* SELLER'S CONTACTS */}
