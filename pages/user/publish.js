@@ -1,9 +1,15 @@
+import { useState } from "react"
+import { useDropzone } from "react-dropzone"
+
+import { Container, Typography, Box, TextField, Select, Button, IconButton } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles"
+import { DeleteForever } from "@material-ui/icons"
+
 import TemplateDefault from "../../src/templates/Default"
 
-import { Container, Typography, Box, TextField, Select, Button } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
-
 const useStyles = makeStyles(theme => ({
+    mask: {},
+    mainImage: {},
     container: {
         padding: theme.spacing(8, 0, 6)
     },
@@ -13,11 +19,72 @@ const useStyles = makeStyles(theme => ({
     box: {
         backgroundColor: theme.palette.background.white,
         padding: theme.spacing(3)
+    },
+    thumbsContainer: {
+        display: "flex",
+        flexWrap: "wrap",
+        marginTop: 15
+    },
+    dropzone: {
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        textAlign: "center",
+        padding: 10,
+        margin: "0 15px 15px 0",
+        width: 200,
+        height: 150,
+        backgroundColor: theme.palette.background.default,
+        border: "2px dashed black"
+    },
+    thumb: {
+        position: "relative",
+        width: 200,
+        height: 150,
+        margin: "0 15px 15px 0",
+        backgroundSize: "cover",
+        backgroundPosition: "center center",
+
+        "& $mainImage": {
+            backgroundColor: "rgba(255, 250, 250, 0.6)",
+            padding: "6px 10px",
+            position: "absolute",
+            bottom: 0,
+            left: 0
+        },
+
+        "&:hover $mask": {
+            display: "flex"
+        },
+
+        "& $mask": {
+            display: "none",
+            justifyContent: "center",
+            alignItems: "center",
+            textAlign: "center",
+            backgroundColor: "rgba(0, 0, 0, 0.7)",
+            width: "100%",
+            height: "100%"
+        }
     }
 }))
 
 const Publish = () => {
+    const [files, setFiles] = useState([])
     const classes = useStyles()
+    const { getRootProps, getInputProps } = useDropzone({
+        accept: "image/*",
+        onDrop: (acceptedFile) => {
+            const newFiles = acceptedFile.map(file => {
+                return Object.assign(file, {preview: URL.createObjectURL(file)})
+            })
+            setFiles([...files, ...newFiles])
+        }
+    })
+    const handleRemoveFile = fileName => {
+        const newFileState = files.filter(file => file.name !== fileName)
+        setFiles(newFileState)
+    }
 
     return(
         <TemplateDefault>
@@ -83,6 +150,41 @@ const Publish = () => {
                     <Typography component="div" variant="body2" color="textPrimary">
                         The first picture is the cover image of your product
                     </Typography>
+                    <Box className={classes.thumbsContainer}>
+                        <Box className={classes.dropzone} {...getRootProps()}>
+                            <Typography variant="body2" color="textPrimary">
+                                Click to add image or drag and drop it in here
+                            </Typography>
+                            <input {...getInputProps()} />
+                        </Box>
+                        {
+                            files.map((file, index) => {
+                                <Box 
+                                    key={file.name}
+                                    className={classes.thumb}
+                                    style={{backgroundImage: `url(${file.preview}`}}
+                                >
+                                    {
+                                        index === 0 ?
+                                            <Box className={classes.mainImage}>
+                                                <Typography variant="body2" color="secondary">
+                                                    Main
+                                                </Typography>
+                                            </Box>
+                                        : null
+                                    }
+                                    <Box className={classes.mask}>
+                                        <IconButton 
+                                            color="secondary" 
+                                            onClick={() => handleRemoveFile(file.name)}
+                                        >
+                                            <DeleteForever fontSize="large" />
+                                        </IconButton>
+                                    </Box>
+                                </Box>
+                            })
+                        }
+                    </Box>
                 </Box>
             </Container>
             {/* PRODUCT'S DESCRIPTION */}
@@ -122,6 +224,7 @@ const Publish = () => {
                         fullWidth
                     />
                     <br /><br />
+                    {/* To-do: add a not-required 2nd phone option} */}
                     <TextField 
                         label="Phone"
                         variant="outlined"
