@@ -116,7 +116,7 @@ const Publish = () => {
                     </Typography>
                     <TextField 
                         variant="outlined"
-                        label={`E.g.: New White Bicycle, 20" rims, less than 1 year usage, aluminium, 20lb`}
+                        label={`Eg: New White Bicycle, 20" rims, less than 1 year usage, aluminium, 20lb`}
                         size="small"
                         fullWidth
                     />
